@@ -1,18 +1,18 @@
 package dojo.supermarket.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ShoppingCart {
 
-    private final List<ProductQuantity> items = new ArrayList<>();
     Map<Product, Double> productQuantities = new HashMap<>();
 
-
     List<ProductQuantity> getItems() {
-        return new ArrayList<>(items);
+        List<ProductQuantity> productQuantities = new ArrayList<>();
+        for (Product product: this.productQuantities.keySet()) {
+            productQuantities.add(new ProductQuantity(product, this.productQuantities.get(product)));
+            System.out.println(product.getName());
+        }
+        return productQuantities;
     }
 
     void addItem(Product product) {
@@ -23,9 +23,7 @@ public class ShoppingCart {
         return productQuantities;
     }
 
-
     public void addItemQuantity(Product product, double quantity) {
-        items.add(new ProductQuantity(product, quantity));
         if (productQuantities.containsKey(product)) {
             productQuantities.put(product, productQuantities.get(product) + quantity);
         } else {
