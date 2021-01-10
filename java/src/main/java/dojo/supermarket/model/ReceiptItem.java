@@ -34,11 +34,15 @@ public class ReceiptItem {
     }
 
     public double getTotalPrice() {
-        double price = product.getPrice() * quantity;
+        double price = getPurePrice();
         if (discount != null) {
-            price += discount.getDiscountAmount();
+            price -= discount.getDiscountAmount();
         }
         return price;
+    }
+
+    public double getPurePrice() {
+        return product.getPrice() * quantity;
     }
 
     public void setDiscount(Discount discount) {
@@ -58,6 +62,5 @@ public class ReceiptItem {
     public int hashCode() {
         return Objects.hash(product, quantity);
     }
-
 
 }

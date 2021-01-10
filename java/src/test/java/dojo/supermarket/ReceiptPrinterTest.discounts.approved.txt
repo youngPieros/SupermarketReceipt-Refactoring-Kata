@@ -1,4 +1,4 @@
-apples                             -0.99
+apples                              0.00
   1.99 * 0.000
 3 for 2(apples)                    -0.99
 
