@@ -4,11 +4,13 @@ import java.util.Objects;
 
 public class ReceiptItem {
     private final Product product;
-    private final double quantity;
+    private double quantity;
+    private Discount discount;
 
     private ReceiptItem(Product product, double quantity) {
         this.product = product;
         this.quantity = quantity;
+        this.discount = null;
     }
 
     public static ReceiptItem createFromProductQuantity(ProductQuantity productQuantity) {
@@ -23,8 +25,24 @@ public class ReceiptItem {
         return quantity;
     }
 
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void addQuantity(double quantity) {
+        this.quantity += quantity;
+    }
+
     public double getTotalPrice() {
-        return product.getPrice() * quantity;
+        double price = product.getPrice() * quantity;
+        if (discount != null) {
+            price += discount.getDiscountAmount();
+        }
+        return price;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 
     @Override

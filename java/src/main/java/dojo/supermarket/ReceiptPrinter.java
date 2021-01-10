@@ -18,15 +18,17 @@ public class ReceiptPrinter {
 
     public String printReceipt(Receipt receipt) {
         StringBuilder result = new StringBuilder();
+        StringBuilder discountInfo = new StringBuilder();
         for (ReceiptItem item : receipt.getItems()) {
             String receiptItem = presentReceiptItem(item);
             result.append(receiptItem);
-        }
-        for (Discount discount : receipt.getDiscounts()) {
-            String discountPresentation = presentDiscount(discount);
-            result.append(discountPresentation);
+            if (item.getDiscount() != null) {
+                String discountPresentation = presentDiscount(item.getProduct(), item.getDiscount());
+                discountInfo.append(discountPresentation);
+            }
         }
 
+        result.append(discountInfo);
         result.append("\n");
         result.append(presentTotal(receipt));
         return result.toString();
@@ -44,8 +46,8 @@ public class ReceiptPrinter {
         return line;
     }
 
-    private String presentDiscount(Discount discount) {
-        String name = discount.getDescription() + "(" + discount.getProduct().getName() + ")";
+    private String presentDiscount(Product product, Discount discount) {
+        String name = discount.getDescription() + "(" + product.getName() + ")";
         String value = presentPrice(discount.getDiscountAmount());
 
         return formatLineWithWhitespace(name, value);

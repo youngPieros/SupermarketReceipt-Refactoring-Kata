@@ -3,12 +3,14 @@ package dojo.supermarket.model;
 public class Discount {
     private final String description;
     private final double discountAmount;
-    private final Product product;
 
-    public Discount(Product product, String description, double discountAmount) {
-        this.product = product;
+    private Discount(String description, double discountAmount) {
         this.description = description;
         this.discountAmount = discountAmount;
+    }
+
+    public static Discount createDiscount(String description, double discountAmount) {
+        return new Discount(description, discountAmount);
     }
 
     public String getDescription() {
@@ -17,10 +19,6 @@ public class Discount {
 
     public double getDiscountAmount() {
         return discountAmount;
-    }
-
-    public Product getProduct() {
-        return product;
     }
 
 }
