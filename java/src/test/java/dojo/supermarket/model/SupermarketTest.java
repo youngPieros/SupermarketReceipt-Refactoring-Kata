@@ -20,13 +20,13 @@ public class SupermarketTest {
         teller = new Teller(catalog);
         theCart = new ShoppingCart();
 
-        toothbrush = new Product("toothbrush", ProductUnit.Each);
+        toothbrush = new Product("toothbrush", 0.99, ProductUnit.Each);
         catalog.addProduct(toothbrush, 0.99);
-        rice = new Product("rice", ProductUnit.Each);
+        rice = new Product("rice", 2.99, ProductUnit.Each);
         catalog.addProduct(rice, 2.99);
-        apples = new Product("apples", ProductUnit.Kilo);
+        apples = new Product("apples", 1.99, ProductUnit.Kilo);
         catalog.addProduct(apples, 1.99);
-        cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
+        cherryTomatoes = new Product("cherry tomato box", 0.69, ProductUnit.Each);
         catalog.addProduct(cherryTomatoes, 0.69);
 
     }
