@@ -18,8 +18,8 @@ public class Receipt {
         return total;
     }
 
-    public void addProduct(Product p, double quantity) {
-        this.items.add(new ReceiptItem(p, quantity));
+    public void addProduct(ProductQuantity productQuantity) {
+        this.items.add(ReceiptItem.createFromProductQuantity(productQuantity));
     }
 
     public List<ReceiptItem> getItems() {

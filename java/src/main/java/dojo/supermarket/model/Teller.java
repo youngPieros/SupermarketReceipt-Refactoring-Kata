@@ -20,10 +20,8 @@ public class Teller {
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
         Receipt receipt = new Receipt();
         List<ProductQuantity> productQuantities = theCart.getItems();
-        for (ProductQuantity pq: productQuantities) {
-            Product p = pq.getProduct();
-            double quantity = pq.getQuantity();
-            receipt.addProduct(p, quantity);
+        for (ProductQuantity productQuantity: productQuantities) {
+            receipt.addProduct(productQuantity);
         }
         theCart.handleOffers(receipt, this.offers, this.catalog);
 

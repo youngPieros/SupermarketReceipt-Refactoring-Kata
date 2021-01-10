@@ -6,9 +6,13 @@ public class ReceiptItem {
     private final Product product;
     private final double quantity;
 
-    public ReceiptItem(Product product, double quantity) {
+    private ReceiptItem(Product product, double quantity) {
         this.product = product;
         this.quantity = quantity;
+    }
+
+    public static ReceiptItem createFromProductQuantity(ProductQuantity productQuantity) {
+        return new ReceiptItem(productQuantity.getProduct(), productQuantity.getQuantity());
     }
 
     public Product getProduct() {
