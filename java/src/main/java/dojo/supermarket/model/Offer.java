@@ -1,18 +1,8 @@
 package dojo.supermarket.model;
+import java.util.*;
 
-public class Offer {
-    SpecialOfferType offerType;
-    private final Product product;
-    double argument;
+public interface Offer {
+    Discount calculateDiscount(Map<Product, Double> productQuantities);
 
-    public Offer(SpecialOfferType offerType, Product product, double argument) {
-        this.offerType = offerType;
-        this.argument = argument;
-        this.product = product;
-    }
-
-    Product getProduct() {
-        return this.product;
-    }
-
+    Double getIncludedProductDiscountNumber(Map<Product, Double> productQuantities);
 }
