@@ -26,8 +26,8 @@ public class ReceiptPrinter {
         for (ReceiptItem item : receipt.getItems()) {
             String receiptItem = presentReceiptItem(item);
             result.append(receiptItem);
-            if (item.getDiscount() != null) {
-                String discountPresentation = presentDiscount(item.getProduct(), item.getDiscount());
+            for (Discount discount: item.getDiscounts()) {
+                String discountPresentation = presentDiscount(item.getProduct(), discount);
                 discountInfo.append(discountPresentation);
             }
         }

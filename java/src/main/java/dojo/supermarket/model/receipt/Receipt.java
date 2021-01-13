@@ -34,7 +34,7 @@ public class Receipt {
     public void addDiscount(Product product, Discount discount) {
         for (ReceiptItem receiptItem: items) {
             if (receiptItem.getProduct().equals(product)) {
-                receiptItem.setDiscount(discount);
+                receiptItem.addDiscount(discount);
             }
         }
     }

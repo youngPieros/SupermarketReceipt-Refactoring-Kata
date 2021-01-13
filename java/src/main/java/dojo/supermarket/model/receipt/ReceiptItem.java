@@ -4,17 +4,17 @@ import dojo.supermarket.model.discount.Discount;
 import dojo.supermarket.model.product.Product;
 import dojo.supermarket.model.product.ProductQuantity;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ReceiptItem implements Comparable<ReceiptItem> {
     private final Product product;
     private double quantity;
-    private Discount discount;
+    private ArrayList<Discount> discounts = new ArrayList<>();
 
     private ReceiptItem(Product product, double quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.discount = null;
     }
 
     public static ReceiptItem createFromProductQuantity(ProductQuantity productQuantity) {
@@ -29,8 +29,8 @@ public class ReceiptItem implements Comparable<ReceiptItem> {
         return quantity;
     }
 
-    public Discount getDiscount() {
-        return discount;
+    public ArrayList<Discount> getDiscounts() {
+        return discounts;
     }
 
     public void addQuantity(double quantity) {
@@ -39,7 +39,7 @@ public class ReceiptItem implements Comparable<ReceiptItem> {
 
     public double getTotalPrice() {
         double price = getPurePrice();
-        if (discount != null) {
+        for(Discount discount: discounts) {
             price -= discount.getDiscountAmount();
         }
         return price;
@@ -49,8 +49,8 @@ public class ReceiptItem implements Comparable<ReceiptItem> {
         return product.getPrice() * quantity;
     }
 
-    public void setDiscount(Discount discount) {
-        this.discount = discount;
+    public void addDiscount(Discount discount) {
+        discounts.add(discount);
     }
 
     @Override
