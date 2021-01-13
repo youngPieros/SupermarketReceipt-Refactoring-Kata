@@ -1,4 +1,8 @@
-package dojo.supermarket.model;
+package dojo.supermarket.model.receipt;
+
+import dojo.supermarket.model.discount.Discount;
+import dojo.supermarket.model.product.Product;
+import dojo.supermarket.model.product.ProductQuantity;
 
 import java.util.Objects;
 

@@ -1,4 +1,7 @@
-package dojo.supermarket.model;
+package dojo.supermarket.model.offer.single;
+
+import dojo.supermarket.model.discount.Discount;
+import dojo.supermarket.model.product.Product;
 
 import java.util.Map;
 
