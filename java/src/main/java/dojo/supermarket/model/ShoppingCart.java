@@ -31,18 +31,12 @@ public class ShoppingCart {
     }
 
     void handleOffers(Receipt receipt, Map<Product, Offer> offers) {
-        for (Product p: productQuantities().keySet()) {
-            if (offers.containsKey(p)) {
-                Offer offer = offers.get(p);
-                double quantityWithDiscount = offer.getIncludedProductDiscountNumber(productQuantities);
-                if (quantityWithDiscount == 0) {
-                    continue;
-                }
-                Discount discount = offer.calculateDiscount(productQuantities);
-                if (discount != null)
-                    receipt.addDiscount(p, discount);
-            }
-
+        for (Product product: offers.keySet()) {
+            Offer offer = offers.get(product);
+            if (!offer.isApplicable(productQuantities))
+                continue;
+            for (Discount discount: offer.calculateDiscounts(productQuantities))
+                receipt.addDiscount(discount.getProduct(), discount);
         }
     }
 }

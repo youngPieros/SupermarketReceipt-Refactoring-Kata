@@ -2,29 +2,28 @@ package dojo.supermarket.model;
 
 import java.util.Map;
 
-public class NumberForAmountOffer extends AbstractOffer {
+public class NumberForAmountOffer extends SingleProductOffer {
 
-    private final Product product;
     private final int numberOfAmountOffer;
     private final double amount;
 
     public NumberForAmountOffer(Product product, int numberOfAmountOffer, double amount) {
-        this.product = product;
+        super(product);
         this.numberOfAmountOffer = numberOfAmountOffer;
         this.amount = amount;
     }
 
     @Override
     public Discount calculateDiscount(Map<Product, Double> productQuantities) {
-        double quantityNumberWithDiscount = getIncludedProductDiscountNumber(productQuantities);
-        double discount = quantityNumberWithDiscount * (product.getPrice() - this.amount / numberOfAmountOffer);
-        return Discount.createDiscount(this.numberOfAmountOffer + " for " + this.amount, discount);
+        int quantity = productQuantities.get(this.getProduct()).intValue();
+        int quantityNumberWithDiscount = (quantity / numberOfAmountOffer * numberOfAmountOffer);
+        double discount = quantityNumberWithDiscount * (this.getProduct().getPrice() - this.amount / numberOfAmountOffer);
+        return Discount.createDiscount(this.getProduct(), this.numberOfAmountOffer + " for " + this.amount, discount);
     }
 
     @Override
-    public Double getIncludedProductDiscountNumber(Map<Product, Double> productQuantities) {
-        int quantity = productQuantities.get(product).intValue();
-        return (double) (quantity / numberOfAmountOffer * numberOfAmountOffer);
+    protected boolean isApplicableOffer(Map<Product, Double> productQuantities) {
+        return productQuantities.get(getProduct()) >= numberOfAmountOffer;
     }
 
 }

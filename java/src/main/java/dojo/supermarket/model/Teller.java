@@ -17,13 +17,13 @@ public class Teller {
         this.offers.put(product, offer);
     }
 
-    public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
+    public Receipt checksOutArticlesFrom(ShoppingCart cart) {
         Receipt receipt = new Receipt();
-        List<ProductQuantity> productQuantities = theCart.getItems();
+        List<ProductQuantity> productQuantities = cart.getItems();
         for (ProductQuantity productQuantity: productQuantities) {
             receipt.addProduct(productQuantity);
         }
-        theCart.handleOffers(receipt, this.offers);
+        cart.handleOffers(receipt, this.offers);
 
         return receipt;
     }

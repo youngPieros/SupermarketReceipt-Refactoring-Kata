@@ -2,30 +2,28 @@ package dojo.supermarket.model;
 
 import java.util.Map;
 
-public class NumberForNumberOffer extends AbstractOffer {
+public class NumberForNumberOffer extends SingleProductOffer {
 
     private final int numberOfBoughtProducts;
     private final int numberOfPaidProducts;
-    private final Product product;
 
     public NumberForNumberOffer(Product product, int numberOfPaidProducts, int numberOfBoughtProducts) {
-        this.product = product;
+        super(product);
         this.numberOfBoughtProducts = numberOfBoughtProducts;
         this.numberOfPaidProducts = numberOfPaidProducts;
     }
 
     @Override
-    public Discount calculateDiscount(Map<Product, Double> productQuantities) {
-        double quantityNumberWithDiscount = getIncludedProductDiscountNumber(productQuantities);
-        double discount = (quantityNumberWithDiscount / numberOfBoughtProducts) *
-                (this.numberOfBoughtProducts - this.numberOfPaidProducts) * product.getPrice();
+    protected Discount calculateDiscount(Map<Product, Double> productQuantities) {
+        int quantity = productQuantities.get(this.getProduct()).intValue();
+        int quantityNumberWithDiscount = quantity / numberOfBoughtProducts;
+        double discount = quantityNumberWithDiscount * (this.numberOfBoughtProducts - this.numberOfPaidProducts) * this.getProduct().getPrice();
         String description = numberOfBoughtProducts + " for " + numberOfPaidProducts;
-        return Discount.createDiscount(description, discount);
+        return Discount.createDiscount(this.getProduct(), description, discount);
     }
 
     @Override
-    public Double getIncludedProductDiscountNumber(Map<Product, Double> productQuantities) {
-        int quantity = productQuantities.get(product).intValue();
-        return (double) ((quantity / numberOfBoughtProducts) * numberOfBoughtProducts);
+    protected boolean isApplicableOffer(Map<Product, Double> productQuantities) {
+        return productQuantities.get(getProduct()) >= numberOfBoughtProducts;
     }
 }
