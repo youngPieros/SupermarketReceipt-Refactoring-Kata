@@ -1,0 +1,8 @@
+apples                             19.90
+  1.99 * 10.000
+toothbrush                          4.95
+  0.99 * 5
+10.0% off(apples)                  -1.00
+10.0% off(toothbrush)              -0.50
+
+Total:                             23.36

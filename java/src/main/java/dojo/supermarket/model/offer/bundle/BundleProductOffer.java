@@ -21,7 +21,16 @@ public abstract class BundleProductOffer extends AbstractOffer {
     }
 
     @Override
-    public abstract List<Discount> calculateDiscounts(Map<Product, Double> productQuantities);
+    public List<Discount> calculateDiscounts(Map<Product, Double> productQuantities) {
+        Map<Product, Double> discountQuantities = getDiscountQuantities(productQuantities);
+        ArrayList<Discount> discounts = calculateBundleDiscounts(productQuantities);
+        for (Product product: products) {
+            double currentQuantity = productQuantities.get(product);
+            double discountQuantity = discountQuantities.get(product);
+            productQuantities.put(product, currentQuantity - discountQuantity);
+        }
+        return discounts;
+    }
 
     @Override
     public boolean isApplicable(Map<Product, Double> productQuantities) {
@@ -32,4 +41,8 @@ public abstract class BundleProductOffer extends AbstractOffer {
     }
 
     protected abstract boolean isApplicableOffer(Map<Product, Double> productQuantities);
+
+    protected abstract Map<Product, Double>  getDiscountQuantities(Map<Product, Double> productQuantities);
+
+    protected abstract ArrayList<Discount> calculateBundleDiscounts(Map<Product, Double> productQuantities);
 }

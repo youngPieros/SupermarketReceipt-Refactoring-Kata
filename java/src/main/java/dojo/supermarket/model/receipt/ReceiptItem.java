@@ -6,7 +6,7 @@ import dojo.supermarket.model.product.ProductQuantity;
 
 import java.util.Objects;
 
-public class ReceiptItem {
+public class ReceiptItem implements Comparable<ReceiptItem> {
     private final Product product;
     private double quantity;
     private Discount discount;
@@ -67,4 +67,9 @@ public class ReceiptItem {
         return Objects.hash(product, quantity);
     }
 
+
+    @Override
+    public int compareTo(ReceiptItem receiptItem) {
+        return this.product.getName().compareTo(receiptItem.product.getName());
+    }
 }

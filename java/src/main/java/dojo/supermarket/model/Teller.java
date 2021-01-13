@@ -5,6 +5,7 @@ import dojo.supermarket.model.product.Product;
 import dojo.supermarket.model.product.ProductQuantity;
 import dojo.supermarket.model.receipt.Receipt;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,17 +13,17 @@ import java.util.Map;
 public class Teller {
 
     private final SupermarketCatalog catalog;
-    private Map<Product, Offer> offers = new HashMap<>();
+    private ArrayList<Offer> offers = new ArrayList<>();
 
     public Teller(SupermarketCatalog catalog) {
         this.catalog = catalog;
     }
 
-    public void addSpecialOffer(Offer offer, Product product) {
-        this.offers.put(product, offer);
+    public void addSpecialOffer(Offer offer) {
+        this.offers.add(offer);
     }
 
-    public Receipt checksOutArticlesFrom(ShoppingCart cart) {
+    public Receipt toReceipt(ShoppingCart cart) {
         Receipt receipt = new Receipt();
         List<ProductQuantity> productQuantities = cart.getItems();
         for (ProductQuantity productQuantity: productQuantities) {

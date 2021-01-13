@@ -36,13 +36,13 @@ public class ShoppingCart {
         }
     }
 
-    void handleOffers(Receipt receipt, Map<Product, Offer> offers) {
-        for (Product product: offers.keySet()) {
-            Offer offer = offers.get(product);
+    void handleOffers(Receipt receipt, ArrayList<Offer> offers) {
+        for (Offer offer: offers) {
             if (!offer.isApplicable(productQuantities))
                 continue;
             for (Discount discount: offer.calculateDiscounts(productQuantities))
                 receipt.addDiscount(discount.getProduct(), discount);
         }
+        Collections.sort(receipt.getItems());
     }
 }

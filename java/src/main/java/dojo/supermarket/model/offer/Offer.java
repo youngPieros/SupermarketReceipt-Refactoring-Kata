@@ -5,7 +5,7 @@ import dojo.supermarket.model.product.Product;
 import java.util.*;
 
 public interface Offer {
-    public List<Discount> calculateDiscounts(Map<Product, Double> productQuantities);
+    List<Discount> calculateDiscounts(Map<Product, Double> productQuantities);
 
-    public boolean isApplicable(Map<Product, Double> productQuantities);
+    boolean isApplicable(Map<Product, Double> productQuantities);
 }
