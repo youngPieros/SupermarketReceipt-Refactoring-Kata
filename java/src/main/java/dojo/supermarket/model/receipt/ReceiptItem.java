@@ -57,9 +57,9 @@ public class ReceiptItem implements Comparable<ReceiptItem> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ReceiptItem that = (ReceiptItem) o;
-        return Double.compare(that.quantity, quantity) == 0 &&
-                Objects.equals(product, that.product);
+        ReceiptItem receiptItem = (ReceiptItem) o;
+        return Double.compare(receiptItem.quantity, quantity) == 0 &&
+                Objects.equals(product, receiptItem.product);
     }
 
     @Override
